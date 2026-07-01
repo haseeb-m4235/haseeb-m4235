@@ -28,22 +28,20 @@ The goal is to make provisioning and accessing clusters dramatically simpler, fa
   &nbsp;&nbsp;
   <img src="https://cdn.simpleicons.org/fastapi" alt="FastAPI" height="50" />
   &nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/databricks" alt="Databricks" height="50" />
-  &nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/snowflake" alt="Snowflake" height="50" />
-  &nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/huggingface" alt="Hugging Face" height="50" />
-  &nbsp;&nbsp;
   <img src="https://cdn.simpleicons.org/scikitlearn" alt="scikit-learn" height="50" />
+  &nbsp;&nbsp;
+  <img src="https://github.com/langfuse.png" alt="Langfuse" height="50" />
+  &nbsp;&nbsp;
+  <img src="https://cdn.simpleicons.org/langgraph" alt="LangGraph" height="50" />
 </p>
 
 ## Open Source Contributions
 
-**[Arize-ai/openinference #3308](https://github.com/Arize-ai/openinference/pull/3308)** - `fix(langchain): accept LangGraph interrupt and resume callbacks`
+**[redis-developer/langgraph-redis #192](https://github.com/redis-developer/langgraph-redis/pull/192)** (merged) - `fix(checkpoint): base64-decode pending send blobs before deserialization`
 
-Fixed a bug in the OpenInference LangChain instrumentor where LangGraph's graph-level lifecycle callbacks (`on_interrupt` and `on_resume`) were dispatched to a tracer that didn't implement them.
-This caused `langchain_core` to raise `AttributeError` and spam warning logs on every interrupt and resume event.
-The fix adds no-op handlers for these lifecycle events, silencing the log noise while keeping tracing behavior and emitted spans completely unchanged.
+Fixed a bug where resuming a graph with queued `Send` operations on the TASKS channel (for example after a human-in-the-loop interrupt or map steps) would crash with an `orjson.JSONDecodeError`.
+The root cause was that pending-send blobs stored as base64-encoded data in Redis JSON were passed straight to the deserializer, unlike the pending-writes path which decoded them first.
+The fix applies `_decode_blob` at a single point in `BaseRedisSaver._load_checkpoint`, covering sync and async as well as single and batch operations, and adds regression tests confirming `Send` objects round-trip correctly through checkpoint storage.
 
 ## Publications
 
@@ -62,4 +60,4 @@ The fix adds no-op handlers for these lifecycle events, silencing the log noise 
 - GitHub: [@haseeb-m4235](https://github.com/haseeb-m4235)
 - LinkedIn: [haseeb-muhammad](https://www.linkedin.com/in/haseeb-muhammad-1a8697274/)
 - X: [@haseeb_md04](https://x.com/haseeb_md04)
-- Email: [haseebmuhamamd4235@gmail.com](mailto:haseebmuhamamd4235@gmail.com)
+- Email: [haseebmuhammad4235@gmail.com](mailto:haseebmuhammad4235@gmail.com)
