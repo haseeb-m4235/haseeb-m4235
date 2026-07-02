@@ -37,6 +37,13 @@ The goal is to make provisioning and accessing clusters dramatically simpler, fa
 
 ## Open Source Contributions
 
+**[Arize-ai/openinference #3308](https://github.com/Arize-ai/openinference/pull/3308)** (merged) - `fix(langchain): accept LangGraph interrupt and resume callbacks`
+
+Fixed log noise in the LangChain instrumentor where every LangGraph interrupt and resume emitted an `AttributeError` warning from `langchain_core`.
+The root cause was that the instrumentor injects `OpenInferenceTracer` into every callback manager, so LangGraph's graph-level lifecycle callbacks reached a tracer that did not implement them.
+The fix adds no-op `on_interrupt` and `on_resume` handlers so the tracer accepts these events cleanly, leaving emitted spans unchanged.
+Regression tests exercise `langchain_core`'s `handle_event` dispatch path directly, so they hold regardless of the installed LangGraph version.
+
 **[redis-developer/langgraph-redis #192](https://github.com/redis-developer/langgraph-redis/pull/192)** (merged) - `fix(checkpoint): base64-decode pending send blobs before deserialization`
 
 Fixed a bug where resuming a graph with queued `Send` operations on the TASKS channel (for example after a human-in-the-loop interrupt or map steps) would crash with an `orjson.JSONDecodeError`.
