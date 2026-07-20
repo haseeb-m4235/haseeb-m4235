@@ -11,7 +11,7 @@ The goal is to make provisioning and accessing clusters dramatically simpler, fa
 ## Interests
 
 - Machine Learning and Deep Learning
-- Computer Vision and image segmentation
+- Computer Vision
 - LLM tooling, agents, and observability
 - Building scalable, production-grade AI systems
 
