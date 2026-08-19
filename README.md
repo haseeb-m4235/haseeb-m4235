@@ -5,7 +5,7 @@ I enjoy turning research ideas into systems that solve real problems, and I care
 
 ## What I'm working on
 
-I currently work as an **AI Engineer at BetaCodes**, where I'm building a project that aims to **revolutionize how compute clusters are deployed and acquired by users**.
+I currently work as an **AI Engineer at a stealth company**, where I'm building a project that aims to **revolutionize how compute clusters are deployed and acquired by users**.
 The goal is to make provisioning and accessing clusters dramatically simpler, faster, and more accessible than it is today.
 
 ## Interests
