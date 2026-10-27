@@ -36,6 +36,12 @@ The goal is to make provisioning and accessing clusters dramatically simpler, fa
 </p>
 
 ## Open Source Contributions
+**[langchain-ai/langgraph #8218](https://github.com/langchain-ai/langgraph/issues/8218)** (reported, fix credited in [#9406](https://github.com/langchain-ai/langgraph/pull/9406)) - `interrupt() inside a tool is reported as a tool-error on the tools stream`
+
+Found and reported a bug where calling `interrupt()` inside a tool made LangGraph's `tools` stream report the paused tool as a `tool-error`, flattening the structured `Interrupt` into a string so clients could not tell a human-in-the-loop pause from a real failure or recover the interrupt `id` and `value`.
+Traced the root cause to `StreamToolCallHandler._error`, the one place in the streaming path that did not special-case LangGraph's control-flow exceptions, and proposed the fix with sync and async regression tests in [#8219](https://github.com/langchain-ai/langgraph/pull/8219).
+A LangChain maintainer landed the fix in #9406, narrowed to interrupts and drains, and credited #8219 in the PR and commit message.
+
 
 **[Arize-ai/openinference #3308](https://github.com/Arize-ai/openinference/pull/3308)** (merged) - `fix(langchain): accept LangGraph interrupt and resume callbacks`
 
